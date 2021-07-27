@@ -1,11 +1,16 @@
+import path from "path";
 import express, {Application} from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 
+import index from '../routes/index';
+
 class Server {
     private app: Application;
     private readonly port: string;
-    private path = {}
+    private path = {
+        index: '/api/index'
+    }
 
     constructor() {
         this.app = express();
@@ -30,10 +35,13 @@ class Server {
 
         // Carpeta public
         this.app.use(express.static('public'));
+
+        // Folder para almacenar archivos públicos
+        this.app.use('/uploads', express.static(path.resolve('uploads')));
     }
 
     routes(): void {
-        //this.app.use(this.path.users, userRoutes);
+        this.app.use(this.path.index, index);
     }
 
     listen(): void {
