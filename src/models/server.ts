@@ -4,6 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import index from '../routes/index';
+import dbConnection from "../database/config";
 
 class Server {
     private app: Application;
@@ -16,11 +17,18 @@ class Server {
         this.app = express();
         this.port = process.env.PORT || '4000';
 
+        // Conección a la base de datos
+        this.connectDB();
+
         // Middlewares
         this.middlewares();
 
         // Definir las rutas
         this.routes();
+    }
+
+    async connectDB(): Promise<void> {
+        await dbConnection();
     }
 
     middlewares(): void {
