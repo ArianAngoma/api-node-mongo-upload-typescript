@@ -25,6 +25,15 @@ export const createImg = async (req: Request, res: Response): Promise<Response> 
     return res.json({img});
 }
 
+export const updateImg = async (req: Request, res: Response): Promise<Response> => {
+    const {id} = req.params;
+    const {title, description} = req.body;
+    const img = await Image.findByIdAndUpdate(id, {
+        title, description
+    }, {new: true});
+    return res.json(img);
+}
+
 export const deleteImg = async (req: Request, res: Response): Promise<Response> => {
     // Eliminar Image de la DB
     const img = await Image.findByIdAndRemove(req.params.id);
