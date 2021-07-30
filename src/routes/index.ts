@@ -1,12 +1,14 @@
 import {Router} from "express";
 
-import {getImg, createImg} from "../controllers";
+import {getImgs, getImg, createImg} from "../controllers";
 import {upload} from "../helpers/multer";
 import checkErrors from "../middlewares/check-errors";
 
 const router = Router();
 
-router.get('/', getImg);
+router.get('/', getImgs);
+
+router.get('/:id', getImg);
 
 router.post('/', [
     upload.single('file'),
