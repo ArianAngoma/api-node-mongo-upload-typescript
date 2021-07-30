@@ -1,3 +1,5 @@
+import path from 'path';
+import fs from 'fs';
 import {Request, Response} from "express";
 import Image from '../models/images';
 
@@ -24,6 +26,10 @@ export const createImg = async (req: Request, res: Response): Promise<Response> 
 }
 
 export const deleteImg = async (req: Request, res: Response): Promise<Response> => {
+    // Eliminar Image de la DB
     const img = await Image.findByIdAndRemove(req.params.id);
+
+    // Elimar Image del servidor
+    await fs.unlinkSync(path.resolve(img!.img));
     return res.json(img);
 }
