@@ -22,3 +22,8 @@ export const createImg = async (req: Request, res: Response): Promise<Response> 
     await img.save();
     return res.json({img});
 }
+
+export const deleteImg = async (req: Request, res: Response): Promise<Response> => {
+    const img = await Image.findByIdAndRemove(req.params.id);
+    return res.json(img);
+}

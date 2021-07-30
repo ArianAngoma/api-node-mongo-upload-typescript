@@ -1,6 +1,6 @@
 import {Router} from "express";
 
-import {getImgs, getImg, createImg} from "../controllers";
+import {getImgs, getImg, createImg, deleteImg} from "../controllers";
 import {upload} from "../helpers/multer";
 import checkErrors from "../middlewares/check-errors";
 
@@ -14,5 +14,7 @@ router.post('/', [
     upload.single('file'),
     checkErrors
 ], createImg);
+
+router.delete('/:id', deleteImg);
 
 export default router;
