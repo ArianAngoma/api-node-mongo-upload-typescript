@@ -6,7 +6,7 @@ import checkErrors from "../middlewares/check-errors";
 
 const router = Router();
 
-router.get('/', createImg);
+router.get('/', getImg);
 
 router.post('/', [
     upload.single('file'),
